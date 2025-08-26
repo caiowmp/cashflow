@@ -1,4 +1,5 @@
-﻿using CashFlow.Domain.Repositories.Expenses;
+﻿using CashFlow.Domain.Repositories;
+using CashFlow.Domain.Repositories.Expenses;
 using CashFlow.Infrastructure.DataAccess;
 using CashFlow.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ namespace CashFlow.Infrastructure
 
     private static void AddRepositories(IServiceCollection services)
     {
+      services.AddScoped<IUnityOfWork, UnityOfWork>();
       services.AddScoped<IExpensesRepository, ExpensesRepository>();
     }
 
