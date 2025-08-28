@@ -2,6 +2,6 @@
 {
   public interface IUnityOfWork
   {
-    void Commit();
+    Task Commit();
   }
 }
