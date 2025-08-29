@@ -19,7 +19,7 @@ Este projeto foi idealizado como uma ferramenta de aprendizado contínuo, servin
 
 ## 🧠 Tecnologias e Conceitos Utilizados
 
-- ✅ .NET 8 com C#  
+- ✅ .NET 9 com C#  
 - ✅ API REST  
 - ✅ MySQL como banco de dados relacional  
 - ✅ DDD (Domain-Driven Design)  
@@ -31,21 +31,26 @@ Este projeto foi idealizado como uma ferramenta de aprendizado contínuo, servin
 
 ---
 
+
 ## 📂 Estrutura do Projeto
 
 ```
 CashFlow/
 │
 ├── src/
-│   ├── CashFlow.API/             → Camada de apresentação (controllers, endpoints)
+│   ├── CashFlow.Api/             → Camada de apresentação (controllers, endpoints, Program.cs)
 │   ├── CashFlow.Application/     → Casos de uso e regras de aplicação
+│   ├── CashFlow.Communication/   → DTOs e contratos de entrada/saída
 │   ├── CashFlow.Domain/          → Entidades, interfaces, enums, regras de negócio
 │   ├── CashFlow.Infrastructure/  → Implementações, banco de dados, repositórios
+│   ├── CashFlow.Exception/       → Tratamento centralizado de exceções customizadas
 │
 ├── tests/
 │   └── CashFlow.Tests/           → Testes unitários com xUnit
 │
 ├── README.md
+├── .gitignore
+├── LICENSE
 └── CashFlow.sln
 ```
 
