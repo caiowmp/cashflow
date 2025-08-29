@@ -1,4 +1,4 @@
-﻿using CashFlow.Application.UseCases.Expenses.Register;
+﻿using CashFlow.Application.UseCases.Expenses;
 using CashFlow.Communication.Enums;
 using CashFlow.Exception;
 using CommonTestUtilities.Requests;
@@ -6,13 +6,13 @@ using FluentAssertions;
 
 namespace Validators.Tests.Register
 {
-  public class RegisterExpenseValidatorTests
+  public class ExpenseValidatorTests
   {
     [Fact]
     public void Sucess()
     {
       //Arrange
-      var validator = new RegisterExpenseValidator();
+      var validator = new ExpenseValidator();
       var request = RequestRegisterExpenseJsonBuilder.Build();
 
       //Act
@@ -26,10 +26,10 @@ namespace Validators.Tests.Register
     [InlineData("")]
     [InlineData("           ")]
     [InlineData(null)]
-    public void Error_Title_Empty(string title) 
+    public void Error_Title_Empty(string title)
     {
       //Arrange
-      var validator = new RegisterExpenseValidator();
+      var validator = new ExpenseValidator();
       var request = RequestRegisterExpenseJsonBuilder.Build();
       request.Title = title;
 
@@ -42,10 +42,10 @@ namespace Validators.Tests.Register
     }
 
     [Fact]
-    public void Error_Date_Future() 
+    public void Error_Date_Future()
     {
       //Arrange
-      var validator = new RegisterExpenseValidator();
+      var validator = new ExpenseValidator();
       var request = RequestRegisterExpenseJsonBuilder.Build();
       request.Date = DateTime.UtcNow.AddDays(1);
 
@@ -58,10 +58,10 @@ namespace Validators.Tests.Register
     }
 
     [Fact]
-    public void Error_Payment_Type_Invalid() 
+    public void Error_Payment_Type_Invalid()
     {
       //Arrange
-      var validator = new RegisterExpenseValidator();
+      var validator = new ExpenseValidator();
       var request = RequestRegisterExpenseJsonBuilder.Build();
       request.PaymentType = (PaymentType)700;
 
@@ -76,10 +76,10 @@ namespace Validators.Tests.Register
     [Theory]
     [InlineData(0)]
     [InlineData(-1)]
-    public void Error_Amount_Invalid(decimal amount) 
+    public void Error_Amount_Invalid(decimal amount)
     {
       //Arrange
-      var validator = new RegisterExpenseValidator();
+      var validator = new ExpenseValidator();
       var request = RequestRegisterExpenseJsonBuilder.Build();
       request.Amount = amount;
 
