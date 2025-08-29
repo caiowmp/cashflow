@@ -1,4 +1,5 @@
-﻿using CashFlow.Domain.Entities;
+﻿using System.Reflection.Metadata.Ecma335;
+using CashFlow.Domain.Entities;
 using CashFlow.Domain.Repositories.Expenses;
 using CashFlow.Infrastructure.DataAccess;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,18 @@ namespace CashFlow.Infrastructure.Repositories
     public async Task Add(Expense expense)
     {
       await _dbContext.Expenses.AddAsync(expense);
+    }
+
+    public async Task<bool> Delete(long id)
+    {
+      var result = await _dbContext.Expenses.FirstOrDefaultAsync(expense => expense.Id == id);
+
+      if (result is null) 
+        return false;
+
+      _dbContext.Expenses.Remove(result);
+      
+      return true;
     }
 
     public async Task<List<Expense>> GetAll()
