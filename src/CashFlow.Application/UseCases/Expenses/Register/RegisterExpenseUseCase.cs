@@ -45,7 +45,7 @@ namespace CashFlow.Application.UseCases.Expenses.Register
       {
         var errorMessages = result.Errors.Select(error => error.ErrorMessage).ToList();
 
-        throw new ErrorOnValidationException { ErrorsMessage = errorMessages };
+        throw new ErrorOnValidationException(errorMessages);
       }
     }
   }
