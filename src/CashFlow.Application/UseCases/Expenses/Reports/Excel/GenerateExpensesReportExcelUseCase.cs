@@ -37,7 +37,6 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Excel
         worksheet.Cell($"D{line}").Value = expense.Amount;
         worksheet.Cell($"D{line}").Style.NumberFormat.Format = $"-{CURRENCY_SYMBOL} #,##0.00";
 
-
         worksheet.Cell($"E{line}").Value = expense.Description;
 
         line++;
@@ -61,7 +60,7 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Excel
 
       worksheet.Cells("A1:E1").Style.Font.Bold = true;
 
-      worksheet.Cells("A1:E1").Style.Fill.BackgroundColor = XLColor.FromHtml("#8A8A8AC");
+      worksheet.Cells("A1:E1").Style.Fill.BackgroundColor = XLColor.FromHtml("#8A8A8A");
 
       worksheet.Cells("A1:E1").Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
       worksheet.Cell("D1").Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Right);
