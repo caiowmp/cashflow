@@ -1,6 +1,7 @@
 ﻿using CashFlow.Application.UseCases.Expenses.Reports.Pdf.Fonts;
 using CashFlow.Domain.Reports;
 using CashFlow.Domain.Repositories.Expenses;
+using DocumentFormat.OpenXml.Features;
 using MigraDoc.DocumentObjectModel;
 using PdfSharp.Fonts;
 
@@ -27,6 +28,16 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
 
       var document = CreateDocument(month);
       var page = CreatePage(document);
+
+      var paragraph = page.AddParagraph();
+      var title = string.Format(ResourceReportGenerationMessages.TOTAL_SPENT_IN, month.ToString("Y"));
+
+      paragraph.AddFormattedText(title, new Font { Name = FontHelper.MONTSERRAT_REGULAR, Size = 15});
+
+      paragraph.AddLineBreak();
+
+      var totalexpent = expenses.Sum(expenses => expenses.Amount);
+      paragraph.AddFormattedText($"{totalexpent} {CURRENCY_SYMBOL}", new Font { Name = FontHelper.OPENSANS_REGULAR, Size = 50});
 
       return [];
     }
