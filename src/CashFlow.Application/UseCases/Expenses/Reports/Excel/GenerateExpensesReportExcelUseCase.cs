@@ -3,11 +3,14 @@ using CashFlow.Domain.Enums;
 using CashFlow.Domain.Reports;
 using CashFlow.Domain.Repositories.Expenses;
 using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Drawing.ChartDrawing;
 
 namespace CashFlow.Application.UseCases.Expenses.Reports.Excel
 {
   public class GenerateExpensesReportExcelUseCase(IExpensesReadOnlyRepository repository) : IGenerateExpensesReportExcelUseCase
   {
+    private const string CURRENCY_SYMBOL = "$";
+
     public async Task<byte[]> Execute(DateOnly month)
     {
       var expenses = await repository.FilterByMonth(month);
@@ -30,12 +33,17 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Excel
         worksheet.Cell($"A{line}").Value = expense.Title;
         worksheet.Cell($"B{line}").Value = expense.Date;
         worksheet.Cell($"C{line}").Value = ConvertPaymentType(expense.PaymentType);
+
         worksheet.Cell($"D{line}").Value = expense.Amount;
+        worksheet.Cell($"D{line}").Style.NumberFormat.Format = $"-{CURRENCY_SYMBOL} #,##0.00";
+        
+
         worksheet.Cell($"E{line}").Value = expense.Description;
 
         line++;
       }
 
+      worksheet.Columns().AdjustToContents();
 
       var file = new MemoryStream();
       workbook.SaveAs(file);
