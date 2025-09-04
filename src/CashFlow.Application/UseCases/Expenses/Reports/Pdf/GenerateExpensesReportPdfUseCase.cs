@@ -62,6 +62,36 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
         row.Cells[3].VerticalAlignment = VerticalAlignment.Center;
 
         row = table.AddRow();
+        row.Height = 25;
+
+        row.Cells[0].AddParagraph(expense.Date.ToString("D"));
+        row.Cells[0].Format.Font = new Font { Name = FontHelper.OPENSANS_REGULAR, Size = 12, Color = ColorsHelper.BLACK };
+        row.Cells[0].Shading.Color = ColorsHelper.GREEN_DARK;
+        row.Cells[0].VerticalAlignment = VerticalAlignment.Center;
+        row.Cells[0].Format.LeftIndent = 20;
+
+        row.Cells[1].AddParagraph(expense.Date.ToString("t"));
+        row.Cells[1].Format.Font = new Font { Name = FontHelper.OPENSANS_REGULAR, Size = 12, Color = ColorsHelper.BLACK };
+        row.Cells[1].Shading.Color = ColorsHelper.GREEN_DARK;
+        row.Cells[1].VerticalAlignment = VerticalAlignment.Center;
+
+        //row.Cells[2].AddParagraph();
+        //row.Cells[2].Format.Font = new Font { Name = FontHelper.OPENSANS_REGULAR, Size = 12, Color = ColorsHelper.BLACK };
+        //row.Cells[2].Shading.Color = ColorsHelper.GREEN_DARK;
+        //row.Cells[2].VerticalAlignment = VerticalAlignment.Center;
+
+        row.Cells[3].AddParagraph($"-{expense.Amount} {CURRENCY_SYMBOL}");
+        row.Cells[3].Format.Font = new Font { Name = FontHelper.OPENSANS_REGULAR, Size = 14, Color = ColorsHelper.BLACK };
+        row.Cells[3].Shading.Color = ColorsHelper.WHITE;
+        row.Cells[3].VerticalAlignment = VerticalAlignment.Center;
+
+
+
+
+
+
+
+        row = table.AddRow();
         row.Height = 30;
         row.Borders.Visible = false;
       }
