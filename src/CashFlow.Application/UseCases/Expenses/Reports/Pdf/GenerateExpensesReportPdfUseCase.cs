@@ -3,6 +3,8 @@ using CashFlow.Domain.Reports;
 using CashFlow.Domain.Repositories.Expenses;
 using DocumentFormat.OpenXml.Features;
 using MigraDoc.DocumentObjectModel;
+using MigraDoc.Rendering;
+using MigraDoc.RtfRendering;
 using PdfSharp.Fonts;
 
 namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
@@ -32,17 +34,17 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
       var paragraph = page.AddParagraph();
       var title = string.Format(ResourceReportGenerationMessages.TOTAL_SPENT_IN, month.ToString("Y"));
 
-      paragraph.AddFormattedText(title, new Font { Name = FontHelper.MONTSERRAT_REGULAR, Size = 15});
+      paragraph.AddFormattedText(title, new Font { Name = FontHelper.MONTSERRAT_REGULAR, Size = 15 });
 
       paragraph.AddLineBreak();
 
       var totalexpent = expenses.Sum(expenses => expenses.Amount);
-      paragraph.AddFormattedText($"{totalexpent} {CURRENCY_SYMBOL}", new Font { Name = FontHelper.OPENSANS_REGULAR, Size = 50});
+      paragraph.AddFormattedText($"{totalexpent} {CURRENCY_SYMBOL}", new Font { Name = FontHelper.OPENSANS_REGULAR, Size = 50 });
 
-      return [];
+      return RenderDocument(document);
     }
 
-    private Document CreateDocument(DateOnly month) 
+    private Document CreateDocument(DateOnly month)
     {
       var document = new Document();
       document.Info.Title = $"{ResourceReportGenerationMessages.EXPENSES_FOR} {month:Y}";
@@ -54,7 +56,7 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
 
       return document;
     }
-  
+
     private Section CreatePage(Document document)
     {
       var section = document.AddSection();
@@ -67,6 +69,21 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
       section.PageSetup.BottomMargin = 80;
 
       return section;
+    }
+
+    private byte[] RenderDocument(Document document)
+    {
+      var renderer = new PdfDocumentRenderer
+      {
+        Document = document,
+      };
+
+      renderer.RenderDocument();
+
+      using var file = new MemoryStream();
+      renderer.PdfDocument.Save(file);
+
+      return file.ToArray();
     }
   }
 }
