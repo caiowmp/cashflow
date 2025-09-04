@@ -3,6 +3,7 @@ using CashFlow.Domain.Reports;
 using CashFlow.Domain.Repositories.Expenses;
 using DocumentFormat.OpenXml.Features;
 using MigraDoc.DocumentObjectModel;
+using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
 using MigraDoc.RtfRendering;
 using PdfSharp.Fonts;
@@ -33,16 +34,19 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
 
       var table = page.AddTable();
       table.AddColumn();
-      table.AddColumn();
+      table.AddColumn("300");
 
       var row = table.AddRow();
       row.Cells[0].AddImage("C:\\Users\\caiow\\Downloads\\metal_62x62.png");
 
       row.Cells[1].AddParagraph("Hey, Caio Miranda Pereira");
       row.Cells[1].Format.Font = new Font { Name = FontHelper.MONTSERRAT_BLACK, Size = 16};
-
+      row.Cells[1].VerticalAlignment = VerticalAlignment.Center;
 
       var paragraph = page.AddParagraph();
+      paragraph.Format.SpaceBefore = "40";
+      paragraph.Format.SpaceAfter = "40";
+
       var title = string.Format(ResourceReportGenerationMessages.TOTAL_SPENT_IN, month.ToString("Y"));
 
       paragraph.AddFormattedText(title, new Font { Name = FontHelper.MONTSERRAT_REGULAR, Size = 15 });
