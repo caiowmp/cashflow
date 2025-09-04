@@ -3,7 +3,7 @@ using CashFlow.Domain.Repositories.Expenses;
 using CashFlow.Infrastructure.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
-namespace CashFlow.Infrastructure.Repositories
+namespace CashFlow.Infrastructure.DataAccess.Repositories
 {
   internal class ExpensesRepository : IExpensesReadOnlyRepository, IExpensesWriteOnlyRepository, IExpensesUpdateOnlyRepository
   {
