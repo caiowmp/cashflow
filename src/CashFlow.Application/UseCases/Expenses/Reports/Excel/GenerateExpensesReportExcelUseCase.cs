@@ -1,4 +1,5 @@
 ﻿
+using CashFlow.Domain.Reports;
 using ClosedXML.Excel;
 
 namespace CashFlow.Application.UseCases.Expenses.Reports.Excel
@@ -14,6 +15,24 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Excel
       workbook.Style.Font.FontName = "Arial";
 
       var worksheet = workbook.Worksheets.Add(month.ToString("Y"));
+
+      InsertHeader(worksheet);
+    }
+
+    private void InsertHeader(IXLWorksheet worksheet)
+    {
+      worksheet.Cell("A1").Value = ResourceReportGenerationMessages.TITLE;
+      worksheet.Cell("B1").Value = ResourceReportGenerationMessages.DATE;
+      worksheet.Cell("C1").Value = ResourceReportGenerationMessages.PAYMENT_TYPE;
+      worksheet.Cell("D1").Value = ResourceReportGenerationMessages.AMOUNT1;
+      worksheet.Cell("E1").Value = ResourceReportGenerationMessages.DESCRIPTION;
+
+      worksheet.Cells("A1:E1").Style.Font.Bold = true;
+
+      worksheet.Cells("A1:E1").Style.Fill.BackgroundColor = XLColor.FromHtml("#8A8A8AC");
+
+      worksheet.Cells("A1:E1").Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
+      worksheet.Cell("D1").Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Right);
     }
   }
 }
