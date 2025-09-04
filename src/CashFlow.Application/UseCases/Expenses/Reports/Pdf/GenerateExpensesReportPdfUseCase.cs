@@ -1,4 +1,5 @@
-﻿using CashFlow.Application.UseCases.Expenses.Reports.Pdf.Fonts;
+﻿using System.Reflection;
+using CashFlow.Application.UseCases.Expenses.Reports.Pdf.Fonts;
 using CashFlow.Domain.Entities;
 using CashFlow.Domain.Reports;
 using CashFlow.Domain.Repositories.Expenses;
@@ -36,8 +37,8 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
 
       CreateHeaderWithProfilePhotoAndName(page);
 
-      var totalexpent = expenses.Sum(expenses => expenses.Amount);
-      CreateTotalSpentSection(page, month, totalexpent);
+      var totalExpent = expenses.Sum(expenses => expenses.Amount);
+      CreateTotalSpentSection(page, month, totalExpent);
 
       return RenderDocument(document);
     }
@@ -91,7 +92,12 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
       table.AddColumn("300");
 
       var row = table.AddRow();
-      row.Cells[0].AddImage("C:\\Users\\caiow\\Downloads\\metal_62x62.png");
+
+      var assembly = Assembly.GetExecutingAssembly();
+      var directoryName = Path.GetDirectoryName(assembly.Location);
+      var pathFile = Path.Combine(directoryName!, "Logo", "logo.png");
+      
+      row.Cells[0].AddImage(pathFile);
 
       row.Cells[1].AddParagraph("Hey, Caio Miranda Pereira");
       row.Cells[1].Format.Font = new Font { Name = FontHelper.MONTSERRAT_BLACK, Size = 16 };
