@@ -1,5 +1,5 @@
 ﻿using System.Net.Mime;
-using CashFlow.Communication.Requests;
+using CashFlow.Application.UseCases.Expenses.Reports.Excel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CashFlow.Api.Controllers
