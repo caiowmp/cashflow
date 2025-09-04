@@ -17,7 +17,7 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Excel
       if (expenses.Count == 0)
         return [];
 
-      var workbook = new XLWorkbook();
+      using var workbook = new XLWorkbook();
 
       workbook.Author = "Caio Miranda Pereira";
       workbook.Style.Font.FontSize = 12;
