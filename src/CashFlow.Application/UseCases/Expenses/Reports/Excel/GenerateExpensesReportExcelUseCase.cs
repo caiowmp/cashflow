@@ -31,7 +31,7 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Excel
       foreach (var expense in expenses)
       {
         worksheet.Cell($"A{line}").Value = expense.Title;
-        worksheet.Cell($"B{line}").Value = expense.Date;
+        worksheet.Cell($"B{line}").Value = expense.Date.Date;
         worksheet.Cell($"C{line}").Value = ConvertPaymentType(expense.PaymentType);
 
         worksheet.Cell($"D{line}").Value = expense.Amount;
@@ -73,7 +73,7 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Excel
 
       worksheet.Cells("A1:E1").Style.Font.Bold = true;
 
-      worksheet.Cells("A1:E1").Style.Fill.BackgroundColor = XLColor.FromHtml("#8A8A8AC");
+      worksheet.Cells("A1:E1").Style.Fill.BackgroundColor = XLColor.FromHtml("#8A8A8A");
 
       worksheet.Cells("A1:E1").Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
       worksheet.Cell("D1").Style.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Right);
