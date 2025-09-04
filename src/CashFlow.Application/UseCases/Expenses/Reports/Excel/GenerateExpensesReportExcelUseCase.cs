@@ -1,13 +1,18 @@
 ﻿
 using CashFlow.Domain.Reports;
+using CashFlow.Domain.Repositories.Expenses;
 using ClosedXML.Excel;
 
 namespace CashFlow.Application.UseCases.Expenses.Reports.Excel
 {
-  public class GenerateExpensesReportExcelUseCase : IGenerateExpensesReportExcelUseCase
+  public class GenerateExpensesReportExcelUseCase(IExpensesReadOnlyRepository repository) : IGenerateExpensesReportExcelUseCase
   {
     public async Task<byte[]> Execute(DateOnly month)
     {
+      var expenses = await repository.FilterByMonth(month);
+      if (expenses.Count == 0)
+        return [];
+
       var workbook = new XLWorkbook();
 
       workbook.Author = "Caio Miranda Pereira";
