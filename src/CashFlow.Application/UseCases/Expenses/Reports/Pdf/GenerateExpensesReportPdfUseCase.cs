@@ -9,6 +9,7 @@ using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
 using MigraDoc.RtfRendering;
+using PdfSharp.Events;
 using PdfSharp.Fonts;
 
 namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
@@ -39,6 +40,13 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
 
       var totalExpent = expenses.Sum(expenses => expenses.Amount);
       CreateTotalSpentSection(page, month, totalExpent);
+
+      foreach (var expense in expenses)
+      {
+        var table = CreateExpensesTable(page);
+
+
+      }
 
       return RenderDocument(document);
     }
@@ -102,6 +110,18 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
       row.Cells[1].AddParagraph("Hey, Caio Miranda Pereira");
       row.Cells[1].Format.Font = new Font { Name = FontHelper.MONTSERRAT_BLACK, Size = 16 };
       row.Cells[1].VerticalAlignment = VerticalAlignment.Center;
+    }
+
+    private Table CreateExpensesTable(Section page)
+    {
+      var table = page.AddTable();
+
+      table.AddColumn("195").Format.Alignment = ParagraphAlignment.Left;
+      table.AddColumn("80").Format.Alignment = ParagraphAlignment.Center;
+      table.AddColumn("120").Format.Alignment = ParagraphAlignment.Center;
+      table.AddColumn("120").Format.Alignment = ParagraphAlignment.Right;
+
+      return table;
     }
 
     private void CreateTotalSpentSection(Section page, DateOnly month, decimal totalExpent)
