@@ -3,7 +3,6 @@ using CashFlow.Domain.Enums;
 using CashFlow.Domain.Reports;
 using CashFlow.Domain.Repositories.Expenses;
 using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Drawing.ChartDrawing;
 
 namespace CashFlow.Application.UseCases.Expenses.Reports.Excel
 {
@@ -36,7 +35,7 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Excel
 
         worksheet.Cell($"D{line}").Value = expense.Amount;
         worksheet.Cell($"D{line}").Style.NumberFormat.Format = $"-{CURRENCY_SYMBOL} #,##0.00";
-        
+
 
         worksheet.Cell($"E{line}").Value = expense.Description;
 
