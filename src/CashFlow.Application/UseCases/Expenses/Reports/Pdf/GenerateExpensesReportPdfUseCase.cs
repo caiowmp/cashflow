@@ -1,6 +1,8 @@
 ﻿using CashFlow.Application.UseCases.Expenses.Reports.Pdf.Fonts;
+using CashFlow.Domain.Entities;
 using CashFlow.Domain.Reports;
 using CashFlow.Domain.Repositories.Expenses;
+using DocumentFormat.OpenXml.Bibliography;
 using DocumentFormat.OpenXml.Features;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
@@ -32,29 +34,10 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
       var document = CreateDocument(month);
       var page = CreatePage(document);
 
-      var table = page.AddTable();
-      table.AddColumn();
-      table.AddColumn("300");
-
-      var row = table.AddRow();
-      row.Cells[0].AddImage("C:\\Users\\caiow\\Downloads\\metal_62x62.png");
-
-      row.Cells[1].AddParagraph("Hey, Caio Miranda Pereira");
-      row.Cells[1].Format.Font = new Font { Name = FontHelper.MONTSERRAT_BLACK, Size = 16};
-      row.Cells[1].VerticalAlignment = VerticalAlignment.Center;
-
-      var paragraph = page.AddParagraph();
-      paragraph.Format.SpaceBefore = "40";
-      paragraph.Format.SpaceAfter = "40";
-
-      var title = string.Format(ResourceReportGenerationMessages.TOTAL_SPENT_IN, month.ToString("Y"));
-
-      paragraph.AddFormattedText(title, new Font { Name = FontHelper.MONTSERRAT_REGULAR, Size = 15 });
-
-      paragraph.AddLineBreak();
+      CreateHeaderWithProfilePhotoAndName(page);
 
       var totalexpent = expenses.Sum(expenses => expenses.Amount);
-      paragraph.AddFormattedText($"{totalexpent} {CURRENCY_SYMBOL}", new Font { Name = FontHelper.OPENSANS_REGULAR, Size = 50 });
+      CreateTotalSpentSection(page, month, totalexpent);
 
       return RenderDocument(document);
     }
@@ -99,6 +82,35 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
       renderer.PdfDocument.Save(file);
 
       return file.ToArray();
+    }
+
+    private void CreateHeaderWithProfilePhotoAndName(Section page)
+    {
+      var table = page.AddTable();
+      table.AddColumn();
+      table.AddColumn("300");
+
+      var row = table.AddRow();
+      row.Cells[0].AddImage("C:\\Users\\caiow\\Downloads\\metal_62x62.png");
+
+      row.Cells[1].AddParagraph("Hey, Caio Miranda Pereira");
+      row.Cells[1].Format.Font = new Font { Name = FontHelper.MONTSERRAT_BLACK, Size = 16 };
+      row.Cells[1].VerticalAlignment = VerticalAlignment.Center;
+    }
+
+    private void CreateTotalSpentSection(Section page, DateOnly month, decimal totalExpent)
+    {
+      var paragraph = page.AddParagraph();
+      paragraph.Format.SpaceBefore = "40";
+      paragraph.Format.SpaceAfter = "40";
+
+      var title = string.Format(ResourceReportGenerationMessages.TOTAL_SPENT_IN, month.ToString("Y"));
+
+      paragraph.AddFormattedText(title, new Font { Name = FontHelper.MONTSERRAT_REGULAR, Size = 15 });
+
+      paragraph.AddLineBreak();
+
+      paragraph.AddFormattedText($"{totalExpent} {CURRENCY_SYMBOL}", new Font { Name = FontHelper.OPENSANS_REGULAR, Size = 50 });
     }
   }
 }
