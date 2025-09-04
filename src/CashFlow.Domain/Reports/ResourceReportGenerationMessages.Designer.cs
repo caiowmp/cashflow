@@ -63,9 +63,9 @@ namespace CashFlow.Domain.Reports {
         /// <summary>
         ///   Looks up a localized string similar to Amount.
         /// </summary>
-        public static string AMOUNT1 {
+        public static string AMOUNT {
             get {
-                return ResourceManager.GetString("AMOUNT1", resourceCulture);
+                return ResourceManager.GetString("AMOUNT", resourceCulture);
             }
         }
         
@@ -93,6 +93,42 @@ namespace CashFlow.Domain.Reports {
         public static string PAYMENT_TYPE {
             get {
                 return ResourceManager.GetString("PAYMENT_TYPE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cash.
+        /// </summary>
+        public static string PAYMENT_TYPE_CASH {
+            get {
+                return ResourceManager.GetString("PAYMENT_TYPE_CASH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Credit Card.
+        /// </summary>
+        public static string PAYMENT_TYPE_CREDIT_CARD {
+            get {
+                return ResourceManager.GetString("PAYMENT_TYPE_CREDIT_CARD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debit Card.
+        /// </summary>
+        public static string PAYMENT_TYPE_DEBIT_CARD {
+            get {
+                return ResourceManager.GetString("PAYMENT_TYPE_DEBIT_CARD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eletronic Transfer.
+        /// </summary>
+        public static string PAYMENT_TYPE_ELETRONIC_TRANSFER {
+            get {
+                return ResourceManager.GetString("PAYMENT_TYPE_ELETRONIC_TRANSFER", resourceCulture);
             }
         }
         

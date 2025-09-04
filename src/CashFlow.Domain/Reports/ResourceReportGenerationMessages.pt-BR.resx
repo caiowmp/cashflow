@@ -129,6 +129,18 @@
   <data name="PAYMENT_TYPE" xml:space="preserve">
     <value>Tipo de Pagamento</value>
   </data>
+  <data name="PAYMENT_TYPE_CASH" xml:space="preserve">
+    <value>Dinheiro</value>
+  </data>
+  <data name="PAYMENT_TYPE_CREDIT_CARD" xml:space="preserve">
+    <value>Cartão de Crédito</value>
+  </data>
+  <data name="PAYMENT_TYPE_DEBIT_CARD" xml:space="preserve">
+    <value>Cartão de Débito</value>
+  </data>
+  <data name="PAYMENT_TYPE_ELETRONIC_TRANSFER" xml:space="preserve">
+    <value>Trasnferência Eletrônica</value>
+  </data>
   <data name="TITLE" xml:space="preserve">
     <value>Título</value>
   </data>
