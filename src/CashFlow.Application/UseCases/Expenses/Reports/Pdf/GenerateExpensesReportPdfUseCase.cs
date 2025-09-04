@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using CashFlow.Application.UseCases.Expenses.Reports.Pdf.Colors;
 using CashFlow.Application.UseCases.Expenses.Reports.Pdf.Fonts;
+using CashFlow.Domain.Extensions;
 using CashFlow.Domain.Reports;
 using CashFlow.Domain.Repositories.Expenses;
 using MigraDoc.DocumentObjectModel;
@@ -60,10 +61,8 @@ namespace CashFlow.Application.UseCases.Expenses.Reports.Pdf
         row.Cells[1].AddParagraph(expense.Date.ToString("t"));
         SetStyleBaseForExpenseInformation(row.Cells[1]);
 
-        //row.Cells[2].AddParagraph();
-        //row.Cells[2].Format.Font = new Font { Name = FontHelper.OPENSANS_REGULAR, Size = 12, Color = ColorsHelper.BLACK };
-        //row.Cells[2].Shading.Color = ColorsHelper.GREEN_DARK;
-        //row.Cells[2].VerticalAlignment = VerticalAlignment.Center;
+        row.Cells[2].AddParagraph(expense.PaymentType.PaymentTypeToString());
+        SetStyleBaseForExpenseInformation(row.Cells[2]);
 
         AddAmountForExpense(row.Cells[3], expense.Amount);
 
