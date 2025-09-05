@@ -10,10 +10,10 @@ O **CashFlow** é uma **API REST** desenvolvida com **.NET C#**, cujo objetivo �
 
 Este projeto foi idealizado como uma ferramenta de aprendizado contínuo, servindo de laboratório para praticar:
 
-- Boas práticas de arquitetura de software (como **DDD** e **SOLID**)  
-- Integração com banco de dados  
-- Testes automatizados  
-- Design limpo e escalável  
+- **Domain-Driven Design (DDD)**: Estrutura modular que facilita o entendimento e a manutenção do domínio da aplicação.
+- **Testes de Unidade**: Testes abrangentes com FluentAssertions para garantir a funcionalidade e a qualidade.
+- **Geração de Relatórios**: Capacidade de exportar relatórios detalhados para **PDF e Excel**, oferecendo uma análise visual e eficaz das despesas.
+- **RESTful API com Documentação Swagger**: Interface documentada que facilita a integração e o teste por parte dos desenvolvedores.
 
 ---
 
@@ -58,16 +58,13 @@ CashFlow/
 
 ## ⚙️ Como Executar Localmente
 
-Clone o repositório:
-
+1.Clone o repositório:
 ```bash
 git clone https://github.com/caiowmp/cashflow.git
-cd cashflow
 ```
 
-Configure o banco de dados MySQL e atualize a `connection string` em **appsettings.json**.  
-
-Restaure os pacotes e execute a aplicação:
+2.Configure o banco de dados MySQL e atualize a `connection string` em **appsettings.json**.  
+3.Restaure os pacotes e execute a aplicação:
 
 ```bash
 dotnet restore
