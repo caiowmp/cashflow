@@ -136,16 +136,16 @@
     <value>Expense not found.</value>
   </data>
   <data name="EMAIL_EMPTY" xml:space="preserve">
-    <value />
+    <value>E-mail must not be empty.</value>
   </data>
   <data name="NAME_EMPTY" xml:space="preserve">
-    <value />
+    <value>Name must not be empty.</value>
   </data>
   <data name="EMAIL_INVALID" xml:space="preserve">
-    <value />
+    <value>E-mail is invalid.</value>
   </data>
   <data name="INVALID_PASSWORD" xml:space="preserve">
-    <value />
+    <value>Your password must have at least 8 characters, containing at least one uppercase letter, one lowercase letter, one number, and one special character (e.g., !, ?, *, .).</value>
   </data>
   <data name="EMAIL_ALREADY_REGISTERED" xml:space="preserve">
     <value>This e-mail is already registered</value>
