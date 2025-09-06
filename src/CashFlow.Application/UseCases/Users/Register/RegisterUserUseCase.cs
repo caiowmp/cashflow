@@ -1,19 +1,20 @@
-﻿using System.Runtime.CompilerServices;
-using AutoMapper;
+﻿using AutoMapper;
 using CashFlow.Communication.Requests;
 using CashFlow.Communication.Responses;
 using CashFlow.Domain.Entities;
+using CashFlow.Domain.Security.Cryptography;
 using CashFlow.Exception.ExceptionsBase;
 
 namespace CashFlow.Application.UseCases.Users.Register
 {
-  public class RegisterUserUseCase(IMapper _mapper) : IRegisterUserUseCase
+  public class RegisterUserUseCase(IMapper _mapper, IPasswordEncripter _passwordEncripter) : IRegisterUserUseCase
   {
     public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
     {
       Validate(request);
 
       var user = _mapper.Map<User>(request);
+      user.Password = _passwordEncripter.Encrypt(request.Password);
 
       return new ResponseRegisteredUserJson
       {
