@@ -2,16 +2,19 @@
 using CashFlow.Communication.Requests;
 using CashFlow.Communication.Responses;
 using CashFlow.Domain.Entities;
+using CashFlow.Domain.Repositories.User;
 using CashFlow.Domain.Security.Cryptography;
+using CashFlow.Exception;
 using CashFlow.Exception.ExceptionsBase;
+using FluentValidation.Results;
 
 namespace CashFlow.Application.UseCases.Users.Register
 {
-  public class RegisterUserUseCase(IMapper _mapper, IPasswordEncripter _passwordEncripter) : IRegisterUserUseCase
+  public class RegisterUserUseCase(IMapper _mapper, IPasswordEncripter _passwordEncripter, IUserReadOnlyRepository _userReadOnlyRepository) : IRegisterUserUseCase
   {
     public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
     {
-      Validate(request);
+      await Validate(request);
 
       var user = _mapper.Map<User>(request);
       user.Password = _passwordEncripter.Encrypt(request.Password);
@@ -22,9 +25,14 @@ namespace CashFlow.Application.UseCases.Users.Register
       };
     }
 
-    public void Validate(RequestRegisterUserJson request)
+    public async Task Validate(RequestRegisterUserJson request)
     {
       var result = new RegisterUserValidator().Validate(request);
+
+      var emailExist = await _userReadOnlyRepository.ExistActiveUserWithEmail(request.Email);
+
+      if (emailExist)
+        result.Errors.Add(new ValidationFailure(string.Empty, ResourceErrorMessages.EMAIL_ALREADY_REGISTERED));
 
       if (!result.IsValid)
       {
