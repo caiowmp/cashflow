@@ -57,7 +57,7 @@ namespace UseCases.Test.Users.Register
     private RegisterUserUseCase CreateUseCase(string? email = null)
     {
       var mapper = MapperBuilder.Build();
-      var passwordEncripter = PasswordEncripterBuilder.Build();
+      var passwordEncripter = new PasswordEncrypterBuilder().Build();
       var readRepository = new UserReadOnlyRepositoryBuilder();
       var writeRepository = UserWriteOnlyRepositoryBuilder.Build();
       var unitOfWork = UnitOfWorkBuilder.Build();
