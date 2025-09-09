@@ -17,7 +17,7 @@ namespace CashFlow.Application.UseCases.Users.Register
     IPasswordEncripter _passwordEncripter, 
     IUserReadOnlyRepository _userReadOnlyRepository,
     IUserWriteOnlyRepository _userWriteOnlyRepository,
-    IUnityOfWork _unityOfWork,
+    IUnitOfWork _unityOfWork,
     IAcessTokenGenerator _acessToken) 
     : IRegisterUserUseCase
   {
