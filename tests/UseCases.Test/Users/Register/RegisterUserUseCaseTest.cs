@@ -27,12 +27,12 @@ namespace UseCases.Test.Users.Register
     {
       var mapper = MapperBuilder.Build();
       var passwordEncripter = PasswordEncripterBuilder.Build();
-
+      var readRepository = new UserReadOnlyRepositoryBuilder().Build();
       var writeRepository = UserWriteOnlyRepositoryBuilder.Build();
       var unitOfWork = UnitOfWorkBuilder.Build();
       var tokenGenerator = JwtTokenGeneratorBuilder.Build();
 
-      return new RegisterUserUseCase(mapper, passwordEncripter, null, writeRepository, unitOfWork, tokenGenerator);
+      return new RegisterUserUseCase(mapper, passwordEncripter, readRepository, writeRepository, unitOfWork, tokenGenerator);
     }
   }
 }
