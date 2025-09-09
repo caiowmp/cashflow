@@ -16,12 +16,13 @@ namespace CashFlow.Application.UseCases.Login.DoLogin
     {
       var user = await _repository.GetUserByEmail(request.Email) ?? throw new InvalidLoginException();
 
-      if(!_passwordEncripter.Verify(request.Password, user.Password)
+      if(!_passwordEncripter.Verify(request.Password, user.Password))
         throw new InvalidLoginException();
 
       return new ResponseRegisteredUserJson
       {
-
+        Name = user.Name,
+        Token = _acessTokenGenerator.Generate(user)
       };
     }
   }
