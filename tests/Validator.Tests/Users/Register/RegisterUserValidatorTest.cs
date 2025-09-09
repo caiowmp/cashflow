@@ -58,5 +58,37 @@ namespace Validators.Tests.Users.Register
       result.IsValid.Should().BeFalse();
       result.Errors.Should().ContainSingle().And.Contain(error => error.ErrorMessage.Equals(ResourceErrorMessages.EMAIL_EMPTY));
     }
+
+    [Fact]
+    public void Error_Email_Invalid()
+    {
+      //Arrange
+      var validator = new RegisterUserValidator();
+      var request = RequestRegisterUserJsonBuilder.Build();
+      request.Email = "teste.com";  
+
+      //Act
+      var result = validator.Validate(request);
+
+      //Assert
+      result.IsValid.Should().BeFalse();
+      result.Errors.Should().ContainSingle().And.Contain(error => error.ErrorMessage.Equals(ResourceErrorMessages.EMAIL_INVALID));
+    }
+
+    [Fact]
+    public void Error_Password_Empty()
+    {
+      //Arrange
+      var validator = new RegisterUserValidator();
+      var request = RequestRegisterUserJsonBuilder.Build();
+      request.Password = string.Empty;  
+
+      //Act
+      var result = validator.Validate(request);
+
+      //Assert
+      result.IsValid.Should().BeFalse();
+      result.Errors.Should().ContainSingle().And.Contain(error => error.ErrorMessage.Equals(ResourceErrorMessages.INVALID_PASSWORD));
+    }
   }
 }
