@@ -6,6 +6,7 @@ using System.Text.Json;
 using CashFlow.Exception;
 using CommonTestUtilities.Requests;
 using FluentAssertions;
+using WebApi.Test.InlineData;
 
 namespace WebApi.Test.Users.Register
 {
@@ -38,10 +39,7 @@ namespace WebApi.Test.Users.Register
     }
 
     [Theory]
-    [InlineData("fr")]
-    [InlineData("en")]
-    [InlineData("pt-BR")]
-    [InlineData("pt-PT")]
+    [ClassData(typeof(CultureInlineDataTest))]
     public async Task Error_Empty_Name(string cultureInfo)
     {
       var request = RequestRegisterUserJsonBuilder.Build();
