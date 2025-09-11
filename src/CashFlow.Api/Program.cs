@@ -3,6 +3,7 @@ using CashFlow.Api.Filters;
 using CashFlow.Api.Middleware;
 using CashFlow.Application;
 using CashFlow.Infrastructure;
+using CashFlow.Infrastructure.Extensions;
 using CashFlow.Infrastructure.Migrations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -84,7 +85,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-await MigrateDatabase();
+if(!builder.Configuration.IsTestEnvironment())
+  await MigrateDatabase();
 
 app.Run();
 
