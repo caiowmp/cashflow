@@ -11,7 +11,7 @@ namespace CashFlow.Infrastructure.Security.Tokens
   {
     public string Generate(User user)
     {
-      var calims = new List<Claim>()
+      var claims = new List<Claim>()
       {
         new Claim(ClaimTypes.Name, user.Name),
         new Claim(ClaimTypes.Sid, user.UserIdIdentifier.ToString()),
@@ -21,7 +21,7 @@ namespace CashFlow.Infrastructure.Security.Tokens
       {
         Expires = DateTime.UtcNow.AddMinutes(_expirationTimeMinutes),
         SigningCredentials = new SigningCredentials(GetSecurityKey(), SecurityAlgorithms.HmacSha256Signature), 
-        Subject = new ClaimsIdentity()
+        Subject = new ClaimsIdentity(claims)
       };
 
       var tokenHandler = new JwtSecurityTokenHandler();
