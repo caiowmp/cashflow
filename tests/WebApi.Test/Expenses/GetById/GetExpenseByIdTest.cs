@@ -16,7 +16,7 @@ public class GetExpenseByIdTest : CashFlowClassFixture
 
   public GetExpenseByIdTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
   {
-    _token = webApplicationFactory.User_Teams_Member.GetToken();
+    _token = webApplicationFactory.User_Team_Member.GetToken();
     _expenseId = webApplicationFactory.Expense.GetId();
   }
 

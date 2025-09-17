@@ -14,7 +14,7 @@ namespace WebApi.Test
   public class CustomWebApplicationFactory : WebApplicationFactory<Program>
   {
 
-    public UserIdentityManager User_Teams_Member { get; private set; } = default!;
+    public UserIdentityManager User_Team_Member { get; private set; } = default!;
     public UserIdentityManager User_Admin { get; private set; } = default!;
     public ExpenseIdentityManager Expense { get; private set; } = default!;
 
@@ -75,7 +75,7 @@ namespace WebApi.Test
 
       var token = acessTokenGenerator.Generate(user);
 
-      User_Teams_Member = new UserIdentityManager(user, password, token);
+      User_Team_Member = new UserIdentityManager(user, password, token);
 
       return user;
     }

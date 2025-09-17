@@ -20,9 +20,9 @@ namespace WebApi.Test.Login.DoLogin
 
     public DoLoginTest(CustomWebApplicationFactory customWebApplicationFactory) :base(customWebApplicationFactory) 
     {
-      _email = customWebApplicationFactory.User_Teams_Member.GetEmail();
-      _name = customWebApplicationFactory.User_Teams_Member.GetName();
-      _password = customWebApplicationFactory.User_Teams_Member.GetPassword();
+      _email = customWebApplicationFactory.User_Team_Member.GetEmail();
+      _name = customWebApplicationFactory.User_Team_Member.GetName();
+      _password = customWebApplicationFactory.User_Team_Member.GetPassword();
     }
 
     [Fact]

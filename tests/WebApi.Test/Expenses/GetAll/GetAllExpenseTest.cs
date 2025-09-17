@@ -11,7 +11,7 @@ public class GetAllExpenseTest : CashFlowClassFixture
 
   public GetAllExpenseTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
   {
-    _token = webApplicationFactory.User_Teams_Member.GetToken();
+    _token = webApplicationFactory.User_Team_Member.GetToken();
   }
 
   [Fact]
