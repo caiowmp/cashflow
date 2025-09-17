@@ -1,7 +1,5 @@
 ﻿using System.Globalization;
 using System.Net;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
 using System.Text.Json;
 using CashFlow.Exception;
 using CommonTestUtilities.Requests;
@@ -18,7 +16,7 @@ namespace WebApi.Test.Expenses.Register
 
     public RegisterExpenseTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
     {
-      _token = webApplicationFactory.GetToken();
+      _token = webApplicationFactory.User_Teams_Member.GetToken();
     }
 
     [Fact]
