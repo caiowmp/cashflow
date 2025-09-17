@@ -34,7 +34,7 @@ namespace WebApi.Test
           var passwordEncripter = scope.ServiceProvider.GetRequiredService<IPasswordEncripter>();
           var tokenGenerator = scope.ServiceProvider.GetRequiredService<IAcessTokenGenerator>();
 
-          SatarDatabase(dbContext, passwordEncripter);
+          StartDatabase(dbContext, passwordEncripter);
 
           _token = tokenGenerator.Generate(_user);
         });
@@ -45,16 +45,29 @@ namespace WebApi.Test
     public string GetPassword() => _password;
     public string GetToken() => _token;
 
-    private void SatarDatabase(CashFlowDbContext dbContext, IPasswordEncripter passwordEncrypter)
+    private void StartDatabase(CashFlowDbContext dbContext, IPasswordEncripter passwordEncripter)
+    {
+      AddUsers(dbContext, passwordEncripter);
+      AddExpenses(dbContext, _user);
+
+      dbContext.SaveChanges();
+    }
+
+    private void AddExpenses(CashFlowDbContext dbContext, User user)
+    {
+      var expense = ExpenseBuilder.Build(user);
+
+      dbContext.Expenses.Add(expense);
+    }
+
+    private void AddUsers(CashFlowDbContext dbContext, IPasswordEncripter passwordEncripter)
     {
       _user = UserBuilder.Build();
       _password = _user.Password;
 
-      _user.Password = passwordEncrypter.Encrypt(_user.Password);
+      _user.Password = passwordEncripter.Encrypt(_user.Password);
 
       dbContext.Users.Add(_user);
-
-      dbContext.SaveChanges();  
     }
   }
 }

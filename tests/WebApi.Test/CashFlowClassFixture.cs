@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using System.Globalization;
-using System.Net.Http;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
 namespace WebApi.Test
@@ -28,9 +25,20 @@ namespace WebApi.Test
 
     }
 
+    protected async Task<HttpResponseMessage> DoGet(
+      string requestUri,
+      string token,
+      string culture = "en")
+    {
+      AuthorizeRequest(token);
+      ChangeRequestCulture(culture);
+
+      return await _httpClient.GetAsync(requestUri);
+    }
+
     private void AuthorizeRequest(string token)
     {
-      if(string.IsNullOrWhiteSpace(token)) 
+      if (string.IsNullOrWhiteSpace(token))
         return;
 
       _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
