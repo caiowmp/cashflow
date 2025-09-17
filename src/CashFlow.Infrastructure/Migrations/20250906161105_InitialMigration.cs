@@ -49,7 +49,7 @@ namespace CashFlow.Infrastructure.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     PaymentType = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(65,2)", nullable: false),
                     UserId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
