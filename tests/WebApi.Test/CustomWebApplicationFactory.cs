@@ -1,5 +1,6 @@
 ﻿using CashFlow.Domain.Entities;
 using CashFlow.Domain.Security.Cryptography;
+using CashFlow.Domain.Security.Tokens;
 using CashFlow.Infrastructure.DataAccess;
 using CommonTestUtilities.Entities;
 using Microsoft.AspNetCore.Hosting;
@@ -13,6 +14,7 @@ namespace WebApi.Test
   {
     private User _user;
     private string _password;
+    private string _token;
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -29,15 +31,19 @@ namespace WebApi.Test
 
           var scope = services.BuildServiceProvider().CreateScope();
           var dbContext = scope.ServiceProvider.GetRequiredService<CashFlowDbContext>();
-          var passwordEncrypter = scope.ServiceProvider.GetRequiredService<IPasswordEncripter>();
+          var passwordEncripter = scope.ServiceProvider.GetRequiredService<IPasswordEncripter>();
+          var tokenGenerator = scope.ServiceProvider.GetRequiredService<IAcessTokenGenerator>();
 
-          SatarDatabase(dbContext, passwordEncrypter);
+          SatarDatabase(dbContext, passwordEncripter);
+
+          _token = tokenGenerator.Generate(_user);
         });
     }
 
     public string GetEmail() => _user.Email;
     public string GetName() => _user.Name;
     public string GetPassword() => _password;
+    public string GetToken() => _token;
 
     private void SatarDatabase(CashFlowDbContext dbContext, IPasswordEncripter passwordEncrypter)
     {
