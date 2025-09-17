@@ -52,7 +52,7 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories
       _dbContext.Expenses.Update(expense);
     }
 
-    public async Task<List<Expense>> FilterByMonth(DateOnly date)
+    public async Task<List<Expense>> FilterByMonth(User user, DateOnly date)
     {
       var startDate = new DateTime(year: date.Year, month: date.Month, day: 1).Date;
       var daysInMonth = DateTime.DaysInMonth(year: date.Year, month: date.Month);
@@ -61,7 +61,7 @@ namespace CashFlow.Infrastructure.DataAccess.Repositories
       return await _dbContext
         .Expenses
         .AsNoTracking()
-        .Where(expense => expense.Date.Date >= startDate && expense.Date.Date <= endDate)
+        .Where(expense => expense.UserId == user.Id && expense.Date.Date >= startDate && expense.Date.Date <= endDate)
         .OrderBy(expernse => expernse.Date)
         .ThenBy(expense => expense.Title)
         .ToListAsync();

@@ -15,6 +15,7 @@ namespace CashFlow.Infrastructure.Security.Tokens
       {
         new Claim(ClaimTypes.Name, user.Name),
         new Claim(ClaimTypes.Sid, user.UserIdIdentifier.ToString()),
+        new Claim(ClaimTypes.Role, user.Role)
       };
 
       var tokenDescription = new SecurityTokenDescriptor
