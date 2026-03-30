@@ -20,7 +20,7 @@ namespace CashFlow.Api.Middleware
       var cultureInfo = new CultureInfo("en");
       
       if (!string.IsNullOrWhiteSpace(requestedCulture) 
-          && supportedLanguages.Exists(l => l.Equals(requestedCulture))) 
+          && supportedLanguages.Exists(l => l.Name.Equals(requestedCulture))) 
       {
         cultureInfo = new CultureInfo(requestedCulture);
       }
