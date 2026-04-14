@@ -1,0 +1,23 @@
+# Aplica as configurações para todos os arquivos
+[*]
+
+# Usa espaços para indentação em vez de tabs
+indent_style = space
+
+# Define que cada nível de indentação terá 2 espaços
+indent_size = 2
+
+# Define que um tab equivale a 2 espaços (se indent_style fosse "tab")
+tab_width = 2
+
+# Remove espaços em branco no final das linhas ao salvar
+trim_trailing_whitespace = true
+
+# Garante que o arquivo termine com uma linha em branco
+insert_final_newline = true
+
+# Aplica configurações específicas para arquivos C#
+[*.cs]
+
+# Remove automaticamente os "using" não utilizados ao salvar
+dotnet_remove_unnecessary_imports = true
